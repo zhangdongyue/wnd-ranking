@@ -30,8 +30,8 @@ _CSV_COLUMNS = [
     "u_device_id"         , # string comment '设备号',
     "u_content_id"        , # bigint comment '文章ID',
     "u_wlx_content_id"    , # bigint comment '为0表示没有获取到contentid, 内容外拉新来源内容ID',
-    "u_age"               , # int    comment '年龄-缺失比较多',
-    "u_gender"            , # int    comment '1-男，2-女，5-未知',
+    "u_age"               , # int    comment '年龄-缺失比较多'     [numeric_column -> DEEP]
+    "u_gender"            , # int    comment '1-男，2-女，5-未知', [numeric_column -> DEEP]
     "u_phone_client"      , # string comment 'android or ios',
     "u_province"          , # string comment '省',
     "u_city"              , # string comment '市',
@@ -45,19 +45,19 @@ _CSV_COLUMNS = [
     "u_type_readlist"     , # string comment '用户阅读历史,|分隔,根据一级分类做过打散',
     "u_subcates"          , # string comment '二级分类,|分隔',
     "u_topics"            , # string comment 'topics',
-    "i_recall_from"       , # int    comment '召回来源ID',
+    "i_recall_from"       , # int    comment '召回来源ID',  [numberic_column -> DEEP]
     "i_keywords"          , # string comment '文章关键词,|分隔',
     "i_subcate"           , # string comment '文章二级分类',
     "i_topics"            , # string comment '文章topic',
-    "i_cate"              , # int    comment '文章一级分类',
-    "i_type"              , # int    comment '文章类型 视频/图文/图集',
-    "i_source_name"       , # string comment '文章来源',
-    "i_covershowtype"     , # int    comment '大图三图',
-    "i_playtime"          , # int    comment '播放时长',
-    "i_avg_readtime"      , # int    comment '平均阅读时长',
-    "i_show"              , # int    comment '展现次数',
-    "i_read"              , # int    comment '播放次数',
-    "i_pos"               , # int    comment '文章展现每刷位置',
+    "i_cate"              , # int    comment '文章一级分类', [numeric_column -> DEEP]
+    "i_type"              , # int    comment '文章类型 视频/图文/图集', [numeric_column -> DEEP]
+    "i_source_name"       , # string comment '文章来源', 
+    "i_covershowtype"     , # int    comment '大图三图', [numeric_column -> DEEP]
+    "i_playtime"          , # int    comment '播放时长', [numeric_column -> DEEP]
+    "i_avg_readtime"      , # int    comment '平均阅读时长', [numeric_column -> DEEP]
+    "i_show"              , # int    comment '展现次数', [numeric_column -> DEEP]
+    "i_read"              , # int    comment '播放次数', [numeric_column -> DEEP]
+    "i_pos"               , # int    comment '文章展现每刷位置', [numeric_column -> DEEP]
     "l_click"             , # int    comment '是否点击',
     "l_read_time"         , # int    comment '播放时长(s)',
     "l_share"             , # int    comment '是否分享 0-未分享 1-分享',
@@ -93,6 +93,10 @@ LOSS_PREFIX = {'wide': 'linear/', 'deep': 'dnn/'}
 selected  = ["fea9", "fea15", "fea16", "fea17", "fea18",
              "fea22", "fea23", "fea24", "fea2", "fea1",
              "fea7"]
+
+selected_numeric = ["u_age", "u_gender", "i_cate", "i_type", "i_recall_from", "i_covershowtype", "i_pos", "i_show", "i_read", "i_playtime", "i_avg_readtime"]
+
+selected_indicate = ["u_phone_client", "u_province", "u_city", "u_dtu", "i_source_name"]
 
 def input_fn(data_file, num_epochs, shuffle, batch_size):
 
